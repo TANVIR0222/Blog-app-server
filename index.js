@@ -1,7 +1,10 @@
-const express = require("express");
-require('dotenv').config()
 
-const { default: mongoose } = require("mongoose");
+
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import userRoute from './routes/user.route.js'
+dotenv.config();
 mongoose
   .connect(process.env.MONGODB)
   .then(() => {
@@ -15,6 +18,5 @@ const app = express();
 app.listen(3000, () => {
   console.log("server is running ");
 });
-// tanvirislam3912 Blog-app
-// 1UUx4w7vNe4xjNE7 Eio1hDBR7Km3khKr
-//
+
+app.get('/', userRoute)
