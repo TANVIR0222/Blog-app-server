@@ -1,9 +1,8 @@
 import express from "express";
+import { test } from "../Controller/user.controlle.js";
 
 const route = express.Router();
 
-route.get('/', (req,res)=> {
-    res.json({message : 'Api work'})
-})
+route.get('/test',test)
 
 export default route;
