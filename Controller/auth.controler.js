@@ -1,7 +1,8 @@
 import bcryptjs from "bcryptjs";
 import { User } from "../Models/users.model.js";
+import { errorHandler } from "../utils/error.js";
 
-export const singup = async (req, res) => {
+export const singup = async (req,res,next) => {
   //
   const { userName, email, password } = req.body;
 
@@ -14,7 +15,7 @@ export const singup = async (req, res) => {
     email === "" ||
     password === ""
   ) {
-    return res.status(400).json({ message: "All fields are required" });
+    next(errorHandler(400,'All fields are required'))
   }
 
   //   hash pass korar jono use kortaci
@@ -32,8 +33,8 @@ export const singup = async (req, res) => {
     // user data save mongobd ms
     await newUser.save();
     res.json("singup successfull");
-  } catch (err) {
+  } catch (error) {
     // error ms
-    return res.status(500).json({ message: err.message });
+    next(error);
   }
 };
